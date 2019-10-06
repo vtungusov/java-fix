@@ -10,6 +10,7 @@
     <modules>
         <module>chapter_01_ServletExamples</module>
         <module>chapter_02_JspExamples</module>
+        <module>chapter_03_DatabaseExamples</module>
     </modules>
 
     <packaging>pom</packaging>
