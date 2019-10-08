@@ -2,7 +2,7 @@ package ru.vtungusov.servlets;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import ru.vtungusov.dao.UsersDao;
-import ru.vtungusov.dao.UsersDaoJdbcImp;
+import ru.vtungusov.dao.UsersDaoJdbcTemplateImpl;
 import ru.vtungusov.db.models.User;
 
 import javax.servlet.ServletException;
@@ -12,9 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 @WebServlet("/users")
@@ -38,7 +37,7 @@ public class UsersServletWithDao extends HttpServlet {
             dataSource.setUrl(dbUrl);
             dataSource.setDriverClassName(driverClassName);
 
-            usersDao = new UsersDaoJdbcImp(dataSource);
+            usersDao = new UsersDaoJdbcTemplateImpl(dataSource);
 
         } catch (IOException e) {
             throw new IllegalStateException(e);
@@ -47,7 +46,16 @@ public class UsersServletWithDao extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> users = usersDao.findAll();
+        Optional<User> user = usersDao.find(2);
+        int i = 0;
+
+        List<User> users = null;
+        String firstName = req.getParameter("firstName");
+        if (firstName != null) {
+            users = usersDao.findAllByFirstName(firstName);
+        } else {
+            users = usersDao.findAll();
+        }
         req.setAttribute("usersFromServer", users);
         req.getServletContext().getRequestDispatcher("/jsp/users.jsp").forward(req, resp);
     }
