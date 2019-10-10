@@ -11,6 +11,7 @@
         <module>chapter_01_ServletExamples</module>
         <module>chapter_02_JspExamples</module>
         <module>chapter_03_DatabaseExamples</module>
+        <module>chapter_04_HibernateExample</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -22,6 +23,13 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
         </dependency>
 
     </dependencies>
