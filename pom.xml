@@ -12,6 +12,7 @@
         <module>chapter_02_JspExamples</module>
         <module>chapter_03_DatabaseExamples</module>
         <module>chapter_04_HibernateExample</module>
+        <module>HomeTask2</module>
     </modules>
 
     <packaging>pom</packaging>
