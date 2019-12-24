@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="form-style-2">
-    <div class="form-style-2-heading">Please sign Up!</div>
+    <div class="form-style-2-heading">Please Login!</div>
     <form method="post" action="<c:url value="/login"/>">
         <label class="input-field" for="name">User name
             <input type="text" id="name" name="name" required>

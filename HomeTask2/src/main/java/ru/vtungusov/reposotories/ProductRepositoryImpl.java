@@ -2,22 +2,15 @@ package ru.vtungusov.reposotories;
 
 import ru.vtungusov.models.Product;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static ru.vtungusov.reposotories.Storage.getInstance;
 
 public class ProductRepositoryImpl implements ProductRepository {
 
     private List<Product> products;
 
     public ProductRepositoryImpl() {
-        products = getInstance().products();
-        this.products = new ArrayList<>();
-        this.products.add(new Product("Tomato", 15, 800));
-        this.products.add(new Product("Airplane", 150000, 1));
-        this.products.add(new Product("Knife", 150, 20));
+        products = Storage.getInstance().products();
     }
 
     @Override
@@ -58,4 +51,15 @@ public class ProductRepositoryImpl implements ProductRepository {
         }
         return false;
     }
+
+    @Override
+    public void update(String name, int price, int amount) {
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                product.setAmount(amount);
+                product.setPrice(price);
+            }
+        }
+    }
+
 }

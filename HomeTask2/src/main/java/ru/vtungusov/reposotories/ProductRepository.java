@@ -10,4 +10,5 @@ public interface ProductRepository {
     void save(Product product);
     boolean deleteByName(String name);
     boolean isExist(String name);
+    void update(String name, int price, int amount);
 }

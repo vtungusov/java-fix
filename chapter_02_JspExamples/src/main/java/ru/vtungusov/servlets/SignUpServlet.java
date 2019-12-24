@@ -1,5 +1,6 @@
 package ru.vtungusov.servlets;
 
+import org.mindrot.jbcrypt.BCrypt;
 import ru.vtungusov.models.User;
 import ru.vtungusov.repositories.UsersRepository;
 import ru.vtungusov.repositories.UsersRepositoryInMemoryImp;
@@ -28,7 +29,7 @@ public class SignUpServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         LocalDate birthDate = LocalDate.parse(req.getParameter("birthDate"));
-        this.usersRepository.save(new User(name, password, birthDate));
+        this.usersRepository.save(new User(name, BCrypt.hashpw(password, BCrypt.gensalt()), birthDate));
         /*RequestDispatcher dispatcher = req.getServletContext().getRequestDispatcher("/jsp/signUp.jsp");
         dispatcher.forward(req, resp);*/
         doGet(req, resp);

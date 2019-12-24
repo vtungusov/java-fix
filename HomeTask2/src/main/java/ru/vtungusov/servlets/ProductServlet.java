@@ -4,7 +4,6 @@ import ru.vtungusov.models.Product;
 import ru.vtungusov.reposotories.ProductRepository;
 import ru.vtungusov.reposotories.ProductRepositoryImpl;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +27,7 @@ public class ProductServlet extends HttpServlet {
         }
         List<Product> productList = this.products.findAll();
         Writer writer = resp.getWriter();
-        writer.write("<div><form method=\"get\" action=\"/HomeTask2_war/products\">" +
+        writer.write("<div><form method=\"get\" action=\"/products\">" +
                 "<label>Name:" +
                 "<input type=\"text\" name=\"name\"><br />" +
                 "</label>" +
@@ -65,17 +64,20 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void formHandler(HttpServletRequest req) throws IllegalStateException {
-        String name = req.getParameter("name");
-        String price = req.getParameter("price");
-        String amount = req.getParameter("amount");
-        if (name.equals(""))
-            throw new IllegalStateException();
         try {
-            this.products.save(new Product(name, Integer.parseInt(price), Integer.parseInt(amount)));
+            String name = req.getParameter("name");
+            int price = Integer.parseInt(req.getParameter("price"));
+            int amount = Integer.parseInt(req.getParameter("amount"));
+            if (!name.equals("") && price >= 0 && amount >= 0) {
+                if (products.isExist(name)) {
+                    products.update(name, price, amount);
+                } else
+                    this.products.save(new Product(name, price, amount));
+            } else
+                throw new IllegalStateException();
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
-
     }
 
     private boolean reqExist(HttpServletRequest req) {

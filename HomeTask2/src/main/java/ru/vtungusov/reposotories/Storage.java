@@ -20,9 +20,9 @@ public class Storage {
 
     private Storage() {
         this.products = new ArrayList<>();
-        products.add(new Product("Tomato", 15, 800));
-        products.add(new Product("Airplane", 150000, 1));
-        products.add(new Product("Knife", 150, 20));
+        this.products.add(new Product("Tomato", 15, 800));
+        this.products.add(new Product("Airplane", 150000, 1));
+        this.products.add(new Product("Knife", 150, 20));
     }
 
     public static Storage getInstance() {
